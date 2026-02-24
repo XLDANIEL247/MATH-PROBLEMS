@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nebula Hub | 2026</title>
     <style>
-        /* Space Theme */
+        /* Space Background Theme */
         body { 
             margin: 0; 
+            padding: 0;
             background: radial-gradient(circle at bottom, #1B2735 0%, #090A0F 100%);
             color: #00d2ff;
             font-family: 'Segoe UI', sans-serif;
@@ -17,15 +18,15 @@
             overflow: hidden;
         }
 
-        /* Full-Screen Navigation */
+        /* Nav Bar */
         nav { 
-            background: rgba(0, 0, 0, 0.8); 
-            backdrop-filter: blur(15px);
-            padding: 15px; 
+            background: rgba(0, 0, 0, 0.85); 
+            backdrop-filter: blur(10px);
+            padding: 12px; 
             display: flex; 
             justify-content: center; 
             gap: 20px; 
-            border-bottom: 2px solid #00d2ff;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.4);
             z-index: 1000;
         }
 
@@ -33,12 +34,11 @@
             background: transparent; 
             color: #00d2ff; 
             border: 1px solid #00d2ff; 
-            padding: 10px 20px; 
-            border-radius: 8px; 
+            padding: 8px 22px; 
+            border-radius: 6px; 
             cursor: pointer; 
             font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
 
         button:hover { 
@@ -47,8 +47,8 @@
             box-shadow: 0 0 15px #00d2ff;
         }
 
-        /* Frame & Container Logic */
-        .main-container {
+        /* This container makes the apps take up ALL the remaining space */
+        .app-view {
             flex: 1;
             position: relative;
             width: 100%;
@@ -59,12 +59,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* This fixes the "small" issue */
+            height: 100%; /* Fixes the "small" music app issue */
             border: none;
             display: none;
         }
 
-        .active-frame { display: block; }
+        .active { display: block; }
 
         /* Home Page UI */
         #home-screen {
@@ -76,40 +76,42 @@
             text-align: center;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 10px; letter-spacing: 5px; }
-
-        .search-container {
-            width: 50%;
-            min-width: 300px;
+        .search-box {
+            width: 60%;
+            max-width: 600px;
+            margin-top: 20px;
         }
 
         input {
             width: 100%;
-            padding: 15px 25px;
+            padding: 18px 25px;
             border-radius: 50px;
             border: 2px solid #00d2ff;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            font-size: 1.1rem;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 1.2rem;
             outline: none;
+            transition: 0.3s;
         }
+
+        input:focus { box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
     </style>
 </head>
 <body>
 
     <nav>
-        <button onclick="changePage('home')">Home</button>
-        <button onclick="changePage('unblocker')">Unblocker</button>
-        <button onclick="changePage('music')">Music App</button>
+        <button onclick="nav('home')">Home</button>
+        <button onclick="nav('unblocker')">Unblocker</button>
+        <button onclick="nav('music')">Music App</button>
     </nav>
 
-    <div class="main-container">
-        <div id="home-screen">
-            <h1>NEBULA</h1>
-            <div class="search-container">
-                <input type="text" id="main-search" placeholder="Enter URL or Search Google...">
+    <div class="app-view">
+        <div id="home-screen" class="active-div">
+            <h1 style="font-size: 4rem; letter-spacing: 10px; margin: 0;">NEBULA</h1>
+            <p style="opacity: 0.6;">SURF THE STARS UNRESTRICTED</p>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Enter URL or Search...">
             </div>
-            <p style="margin-top: 20px; opacity: 0.7;">Press Enter to Warp</p>
         </div>
 
         <iframe id="unblocker-frame" src="https://v6.p6.dev/"></iframe>
@@ -118,33 +120,28 @@
     </div>
 
     <script>
-        const searchInput = document.getElementById('main-search');
-        const unblockerFrame = document.getElementById('unblocker-frame');
-
-        // Handle Search Bar Redirect
-        searchInput.addEventListener('keypress', function (e) {
+        const input = document.getElementById('search-input');
+        
+        // When you press enter in the search bar
+        input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                let val = searchInput.value;
-                // Basic logic to handle if they typed a URL or just a word
-                let targetUrl = val.includes('.') ? val : `https://www.google.com/search?q=${val}`;
-                
-                // Switch to unblocker tab and tell the proxy where to go
-                // Note: Most proxies use a specific URL format. v6.p6.dev uses a landing page.
-                changePage('unblocker');
+                nav('unblocker');
+                // Optional: Some proxies allow you to pass the URL directly
+                // but for now, we just switch tabs to the working proxy
             }
         });
 
-        function changePage(page) {
-            // Hide all
+        function nav(page) {
+            // Hide everything
             document.getElementById('home-screen').style.display = 'none';
-            document.getElementById('unblocker-frame').classList.remove('active-frame');
-            document.getElementById('music-frame').classList.remove('active-frame');
+            document.getElementById('unblocker-frame').style.display = 'none';
+            document.getElementById('music-frame').style.display = 'none';
 
             // Show selected
             if (page === 'home') {
                 document.getElementById('home-screen').style.display = 'flex';
             } else {
-                document.getElementById(page + '-frame').classList.add('active-frame');
+                document.getElementById(page + '-frame').style.display = 'block';
             }
         }
     </script>
