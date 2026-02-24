@@ -1,4 +1,4 @@
-/* General Styles */
+/* General Reset and Box Model */
 * {
   margin: 0;
   padding: 0;
@@ -7,39 +7,35 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(to right, #f7f7f7, #e0e0e0);
+  background: linear-gradient(to right, #4facfe, #00f2fe); /* gradient background */
   color: #333;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
+/* Header */
 header {
-  background-color: #333;
+  background-color: #111;
   color: #fff;
   padding: 20px 0;
+  text-align: center;
   position: fixed;
+  width: 100%;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
 header h1 {
-  margin: 0;
-  font-size: 2rem;
-  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
 header nav ul {
   display: flex;
   justify-content: center;
-  list-style-type: none;
-  padding: 10px 0;
+  list-style: none;
+  padding: 0;
 }
 
 header nav ul li {
@@ -47,38 +43,45 @@ header nav ul li {
 }
 
 header nav ul li a {
-  color: white;
+  color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.3s ease;
 }
 
 header nav ul li a:hover {
-  color: #ff7f50;
+  color: #00f2fe;
 }
 
+/* Main content styling */
 main {
   margin-top: 120px;
-  padding: 40px 0;
+  padding: 50px 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.content-section {
-  margin-bottom: 40px;
+.section {
+  width: 80%;
+  max-width: 1200px;
+  margin-bottom: 50px;
   padding: 30px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
-.content-section h2 {
-  color: #333;
+h2 {
   font-size: 2rem;
   margin-bottom: 20px;
+  color: #333;
 }
 
-.content-section p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
+p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
 .games-list {
@@ -88,44 +91,65 @@ main {
 }
 
 .game-item {
-  padding: 15px;
   background-color: #007bff;
   color: white;
+  padding: 20px;
+  border-radius: 10px;
   text-decoration: none;
-  border-radius: 8px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .game-item:hover {
   background-color: #0056b3;
 }
 
-footer {
-  background-color: #333;
-  color: white;
+/* Music iframe styling */
+.music-iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tools Section */
+.tools-list {
+  list-style: none;
+}
+
+.tool-item {
+  display: block;
   padding: 15px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-footer p {
-  margin: 0;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
   background-color: #28a745;
   color: white;
-  border-radius: 5px;
   text-decoration: none;
+  margin: 10px 0;
+  border-radius: 5px;
   font-size: 1.1rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+}
+
+.tool-item:hover {
+  background-color: #218838;
+}
+
+/* Button styling */
+.btn {
+  padding: 15px 25px;
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #218838;
+  background-color: #e0a800;
+}
+
+/* Footer */
+footer {
+  background-color: #111;
+  color: white;
+  padding: 15px 0;
+  text-align: center;
 }
