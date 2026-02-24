@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Gaming Hub</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; }
+        nav { background: #1f1f1f; padding: 1rem; margin-bottom: 20px; }
+        nav a { color: #00ffcc; margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; }
+        iframe { width: 90%; height: 80vh; border: 2px solid #333; border-radius: 10px; display: none; }
+        #home { display: block; padding: 50px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('games')">Games</a>
+        <a onclick="showPage('unblocker')">Unblocker</a>
+        <a onclick="showPage('music')">Music App</a>
+    </nav>
+
+    <div id="home">
+        <h1>Welcome to the Hub</h1>
+        <p>Select an option from the menu above to get started.</p>
+    </div>
+
+    <iframe id="music" src="https://vapor.my/page/music/index.html"></iframe>
+
+    <iframe id="unblocker" src="https://uv.student-portal.workers.dev/"></iframe>
+
+    <iframe id="games" src="https://poki.com"></iframe>
+
+    <script>
+        function showPage(pageId) {
+            // Hide everything
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('music').style.display = 'none';
+            document.getElementById('unblocker').style.display = 'none';
+            document.getElementById('games').style.display = 'none';
+            
+            // Show the selected one
+            document.getElementById(pageId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
