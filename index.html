@@ -1,58 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Math Workspace</title>
+    <meta charset="UTF-8">
+    <title>Learning Portal</title>
     <style>
-        body { margin: 0; background: #111; color: white; font-family: sans-serif; }
-        nav { background: #222; padding: 10px; display: flex; gap: 20px; border-bottom: 2px solid #444; }
-        button { background: #333; color: #00ffcc; border: 1px solid #00ffcc; padding: 5px 15px; cursor: pointer; border-radius: 5px; }
-        .view { width: 100vw; height: calc(100vh - 55px); border: none; display: none; }
+        body { margin: 0; background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; }
+        nav { background: #1a1a1a; padding: 12px; display: flex; justify-content: center; gap: 25px; border-bottom: 3px solid #7000ff; }
+        button { background: transparent; color: #7000ff; border: 2px solid #7000ff; padding: 8px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #7000ff; color: #fff; box-shadow: 0 0 15px #7000ff; }
+        .content { flex-grow: 1; border: none; width: 100%; height: 100%; display: none; }
         .active { display: block; }
-        #search-box { text-align: center; margin-top: 15%; }
-        input { padding: 15px; width: 50%; border-radius: 25px; border: 2px solid #00ffcc; background: #000; color: white; font-size: 1.2rem; outline: none; }
+        #welcome { text-align: center; margin-top: 10%; }
     </style>
 </head>
 <body>
-    <nav>
-        <button onclick="show('unblocker')">Unblocker</button>
-        <button onclick="show('music')">Music</button>
-        <button onclick="show('games')">Games</button>
-    </nav>
 
-    <div id="unblocker" class="view active">
-        <div id="search-box">
-            <h1>Search Engine</h1>
-            <input type="text" id="url-input" placeholder="Search Google or type a URL...">
-            <p>Press Enter to visit</p>
-        </div>
-        <iframe id="proxy-frame" style="width:100%; height:100%; display:none; border:none;"></iframe>
-    </div>
+<nav>
+    <button onclick="show('home')">Home</button>
+    <button onclick="show('unblocker')">Unblocker</button>
+    <button onclick="show('music')">Music App</button>
+</nav>
 
-    <iframe id="music" class="view" src="https://vapor.my/page/music/index.html"></iframe>
-    <iframe id="games" class="view" src="https://poki.com"></iframe>
+<div id="home" class="content active" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h1>Welcome to the Dashboard</h1>
+    <p>Select a tool above to begin.</p>
+</div>
 
-    <script src="uv/uv.bundle.js"></script>
-    <script src="uv/uv.config.js"></script>
-    <script>
-        function show(id) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
+<iframe id="unblocker" class="content" src="https://v4.p6.dev"></iframe>
 
-        const input = document.getElementById('url-input');
-        input.addEventListener('keypress', async (e) => {
-            if (e.key === 'Enter') {
-                await navigator.serviceWorker.register('./sw.js');
-                let url = input.value.trim();
-                if (!url.includes('.')) url = 'https://www.google.com/search?q=' + url;
-                else if (!url.startsWith('http')) url = 'https://' + url;
-                
-                document.getElementById('search-box').style.display = 'none';
-                const frame = document.getElementById('proxy-frame');
-                frame.style.display = 'block';
-                frame.src = __uv$config.prefix + __uv$config.encodeUrl(url);
-            }
-        });
-    </script>
+<iframe id="music" class="content" src="https://vapor.my/page/music/index.html"></iframe>
+
+<script>
+    function show(id) {
+        document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if(id === 'home') document.getElementById('home').style.display = 'flex';
+    }
+</script>
+
 </body>
 </html>
