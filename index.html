@@ -1,48 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Gaming Hub</title>
+    <title>Math Workspace</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; text-align: center; }
-        nav { background: #1f1f1f; padding: 1rem; margin-bottom: 20px; }
-        nav a { color: #00ffcc; margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; }
-        iframe { width: 90%; height: 80vh; border: 2px solid #333; border-radius: 10px; display: none; }
-        #home { display: block; padding: 50px; }
+        body { margin: 0; background: #111; color: white; font-family: sans-serif; }
+        nav { background: #222; padding: 10px; display: flex; gap: 20px; border-bottom: 2px solid #444; }
+        button { background: #333; color: #00ffcc; border: 1px solid #00ffcc; padding: 5px 15px; cursor: pointer; border-radius: 5px; }
+        .view { width: 100vw; height: calc(100vh - 55px); border: none; display: none; }
+        .active { display: block; }
+        #search-box { text-align: center; margin-top: 15%; }
+        input { padding: 15px; width: 50%; border-radius: 25px; border: 2px solid #00ffcc; background: #000; color: white; font-size: 1.2rem; outline: none; }
     </style>
 </head>
 <body>
-
     <nav>
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('games')">Games</a>
-        <a onclick="showPage('unblocker')">Unblocker</a>
-        <a onclick="showPage('music')">Music App</a>
+        <button onclick="show('unblocker')">Unblocker</button>
+        <button onclick="show('music')">Music</button>
+        <button onclick="show('games')">Games</button>
     </nav>
 
-    <div id="home">
-        <h1>Welcome to the Hub</h1>
-        <p>Select an option from the menu above to get started.</p>
+    <div id="unblocker" class="view active">
+        <div id="search-box">
+            <h1>Search Engine</h1>
+            <input type="text" id="url-input" placeholder="Search Google or type a URL...">
+            <p>Press Enter to visit</p>
+        </div>
+        <iframe id="proxy-frame" style="width:100%; height:100%; display:none; border:none;"></iframe>
     </div>
 
-    <iframe id="music" src="https://vapor.my/page/music/index.html"></iframe>
+    <iframe id="music" class="view" src="https://vapor.my/page/music/index.html"></iframe>
+    <iframe id="games" class="view" src="https://poki.com"></iframe>
 
-    <iframe id="unblocker" src="https://uv.student-portal.workers.dev/"></iframe>
-
-    <iframe id="games" src="https://poki.com"></iframe>
-
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.config.js"></script>
     <script>
-        function showPage(pageId) {
-            // Hide everything
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('music').style.display = 'none';
-            document.getElementById('unblocker').style.display = 'none';
-            document.getElementById('games').style.display = 'none';
-            
-            // Show the selected one
-            document.getElementById(pageId).style.display = 'block';
+        function show(id) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
         }
+
+        const input = document.getElementById('url-input');
+        input.addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter') {
+                await navigator.serviceWorker.register('./sw.js');
+                let url = input.value.trim();
+                if (!url.includes('.')) url = 'https://www.google.com/search?q=' + url;
+                else if (!url.startsWith('http')) url = 'https://' + url;
+                
+                document.getElementById('search-box').style.display = 'none';
+                const frame = document.getElementById('proxy-frame');
+                frame.style.display = 'block';
+                frame.src = __uv$config.prefix + __uv$config.encodeUrl(url);
+            }
+        });
     </script>
 </body>
 </html>
