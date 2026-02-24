@@ -1,100 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nebula Hub | 2026</title>
-    <style>
-        :root { --glow: #00d2ff; --bg: #050505; }
-        body { 
-            margin: 0; background: radial-gradient(circle at bottom, #111e2d 0%, var(--bg) 100%);
-            color: white; font-family: 'Segoe UI', sans-serif; height: 100vh;
-            display: flex; flex-direction: column; overflow: hidden;
-        }
-
-        /* Glassmorphism Navbar */
-        nav { 
-            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px);
-            padding: 10px 20px; display: flex; justify-content: center; gap: 15px; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000;
-        }
-
-        nav button { 
-            background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); 
-            padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: 0.3s;
-        }
-
-        nav button:hover { 
-            background: var(--glow); color: #000; box-shadow: 0 0 20px var(--glow); border-color: var(--glow);
-        }
-
-        /* Full Screen App Container */
-        .app-view { flex: 1; position: relative; width: 100%; height: 100%; }
-
-        iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            border: none; display: none; background: var(--bg);
-        }
-
-        .active { display: block !important; }
-
-        /* Home Page UI */
-        #home-screen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100%; text-align: center;
-        }
-
-        .search-area { width: 50%; min-width: 320px; }
-        input {
-            width: 100%; padding: 18px 30px; border-radius: 100px;
-            border: 2px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05);
-            color: #fff; font-size: 1.1rem; outline: none; transition: 0.4s; text-align: center;
-        }
-        input:focus { border-color: var(--glow); box-shadow: 0 0 30px rgba(0, 210, 255, 0.3); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming and Apps Hub</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+  <header>
+    <h1>Welcome to the Gaming and Apps Hub</h1>
     <nav>
-        <button onclick="nav('home')">Home</button>
-        <button onclick="nav('unblocker')">Unblocker</button>
-        <button onclick="nav('games')">Games</button>
-        <button onclick="nav('music')">Music</button>
-        <button onclick="nav('ai')">AI</button>
+      <ul>
+        <li><a href="#games">Games</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#tools">Tools</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <div class="app-view">
-        <div id="home-screen" class="active">
-            <h1 style="font-size: 4rem; letter-spacing: 10px; margin: 0; filter: drop-shadow(0 0 10px var(--glow));">NEBULA</h1>
-            <div class="search-area">
-                <input type="text" id="main-search" placeholder="Type a URL or search...">
-            </div>
-            <p style="opacity: 0.5; margin-top: 20px;">SYSTEM STATUS: ONLINE (Mirror v7 Active)</p>
-        </div>
+  <section id="games">
+    <h2>Popular Games</h2>
+    <!-- Embed games or links to games -->
+    <p>Check out some cool games below:</p>
+    <ul>
+      <li><a href="https://example.com/game1">Game 1</a></li>
+      <li><a href="https://example.com/game2">Game 2</a></li>
+    </ul>
+  </section>
 
-        <iframe id="unblocker-frame" src="https://x.j0.icom.org.np/"></iframe>
-        <iframe id="games-frame" src="https://sites.google.com/view/proxy-centeral/proxys/interstellar"></iframe>
-        <iframe id="music-frame" src="https://vapor.my/page/music/index.html"></iframe>
-        <iframe id="ai-frame" src="https://huggingface.co/chat/"></iframe>
-    </div>
+  <section id="music">
+    <h2>Free Music App</h2>
+    <iframe src="https://vapor.my/page/music/index.html" width="600" height="400"></iframe>
+  </section>
 
-    <script>
-        const searchInput = document.getElementById('main-search');
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') nav('unblocker');
-        });
+  <section id="tools">
+    <h2>Useful Tools</h2>
+    <p>Here are some additional tools you might find useful:</p>
+    <ul>
+      <li><a href="https://example.com/tool1">Tool 1</a></li>
+      <li><a href="https://example.com/tool2">Tool 2</a></li>
+      <!-- Proxy unblocker -->
+      <li><a href="#" id="proxy-toggle">Proxy Unblocker</a></li>
+    </ul>
+  </section>
 
-        function nav(page) {
-            document.querySelectorAll('.app-view > *').forEach(el => el.classList.remove('active'));
-            document.getElementById('home-screen').style.display = 'none';
-            
-            if (page === 'home') {
-                document.getElementById('home-screen').style.display = 'flex';
-                document.getElementById('home-screen').classList.add('active');
-            } else {
-                document.getElementById(page + '-frame').classList.add('active');
-            }
-        }
-    </script>
+  <footer>
+    <p>&copy; 2026 Gaming Hub. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
